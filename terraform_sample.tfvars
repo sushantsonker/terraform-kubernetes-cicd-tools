@@ -1,0 +1,10 @@
+project     = "terraform-k8s-cicd-tools"
+region      = "us-central1"
+zone        = "us-central1-c"
+size        = "n1-standard-2"
+public_key  = ".key/user.pub"
+private_key = ".key/user.pem"
+master_user = "user"
+master_pass = "<add a password here>"
+app_repo    = "https://github.com/sushantsonker/terraform-kubernetes-cicd-tools.git"
+

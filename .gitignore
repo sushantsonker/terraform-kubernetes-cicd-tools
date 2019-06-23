@@ -1,5 +1,4 @@
 .terraform
-*tfvars*
-*tfplan*
-*tfstate*
+terraform.tfvars
 .key
+terraform.txt
