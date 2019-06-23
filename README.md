@@ -11,7 +11,7 @@ public_key  = ".key/user.pub"
 private_key = ".key/user.pem"
 master_user = "user"
 master_pass = "passwd0123456789" # password must be at least 16 characters
-app_repo    = "https://github.com/sushant63/cicd-tools-gcp-terraform.git"
+app_repo    = "https://github.com/sushantsonker/terraform-kubernetes-cicd-tools.git"
 ```
 
 # .key

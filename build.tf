@@ -5,7 +5,7 @@ variable "private_key" {}
 
 locals {
   yum   = "sudo yum -y -d 1 install"
-  image = "centos-7"
+  image = "centos-7-v20180129"
   user  = "centos"
 }
 
@@ -47,7 +47,7 @@ resource "google_compute_instance" "build" {
     inline = [
       "${local.yum} docker git mc",
       "sudo systemctl start docker",
-      "sudo git clone ${var.app_repo} && cd cicd-tools-gcp-terraform/jenkins",
+      "sudo git clone ${var.app_repo} && cd terraform-kubernetes-cicd-tools/jenkins",
       "sudo docker build -t jenkins . && cd ~",
       "sudo chmod 777 /var/run/docker.sock",
       "sudo docker run --name jenkins -d -p 8080:8080 -v /var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins",
