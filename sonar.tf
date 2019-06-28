@@ -2,7 +2,7 @@ resource "kubernetes_deployment" "sonar" {
   metadata {
     name = "sonar"
 
-    labels {
+    labels = {
       app = "sonar"
     }
   }
@@ -11,14 +11,14 @@ resource "kubernetes_deployment" "sonar" {
     replicas = 1
 
     selector {
-      match_labels {
+      match_labels = {
         app = "sonar"
       }
     }
 
     template {
       metadata {
-        labels {
+        labels = {
           app = "sonar"
         }
       }
@@ -39,7 +39,7 @@ resource "kubernetes_service" "sonar" {
   }
 
   spec {
-    selector {
+    selector = {
       app = "${kubernetes_deployment.sonar.metadata.0.labels.app}"
     }
 

@@ -7,7 +7,7 @@ resource "kubernetes_deployment" "app" {
   metadata {
     name = "${local.app}"
 
-    labels {
+    labels = {
       app = "${local.app}"
     }
   }
@@ -16,14 +16,14 @@ resource "kubernetes_deployment" "app" {
     replicas = 3
 
     selector {
-      match_labels {
+      match_labels = {
         app = "${local.app}"
       }
     }
 
     template {
       metadata {
-        labels {
+        labels = {
           app = "${local.app}"
         }
       }
@@ -44,7 +44,7 @@ resource "kubernetes_service" "app" {
   }
 
   spec {
-    selector {
+    selector = {
       app = "${kubernetes_deployment.app.metadata.0.labels.app}"
     }
 

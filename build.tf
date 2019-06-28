@@ -22,10 +22,10 @@ resource "google_compute_instance" "build" {
 
   network_interface {
     network       = "${data.google_compute_network.net.name}"
-    access_config = {}
+    access_config{}
   }
 
-  metadata {
+  metadata = {
     sshKeys = "${local.user}:${file(var.public_key)}"
   }
 
