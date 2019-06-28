@@ -1,5 +1,4 @@
-
-variable "app_repo" {}
+ariable "app_repo" {}
 variable "size" {}
 variable "public_key" {}
 variable "private_key" {}
@@ -61,5 +60,5 @@ resource "google_compute_instance" "build" {
 }
 
 output "build" {
-  value = "${google_compute_instance.build.network_interface.0.access_config.0.assigned_nat_ip}:8080"
+  value = "${google_compute_instance.build.network_interface.0.access_config.0.nat_ip}:8080"
 }
