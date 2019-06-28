@@ -1,4 +1,4 @@
-ariable "app_repo" {}
+variable "app_repo" {}
 variable "size" {}
 variable "public_key" {}
 variable "private_key" {}
