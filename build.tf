@@ -1,3 +1,4 @@
+
 variable "app_repo" {}
 variable "size" {}
 variable "public_key" {}
@@ -31,6 +32,7 @@ resource "google_compute_instance" "build" {
   connection {
     user        = "${local.user}"
     private_key = "${file(var.private_key)}"
+    host = "${google_compute_instance.build.network_interface.0.access_config.0.nat_ip}"
   }
 
   provisioner "file" {
