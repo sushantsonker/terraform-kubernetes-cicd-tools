@@ -1,5 +1,4 @@
-
-variable "app_repo" {}
+ariable "app_repo" {}
 variable "size" {}
 variable "public_key" {}
 variable "private_key" {}
@@ -47,6 +46,7 @@ resource "google_compute_instance" "build" {
 
   provisioner "remote-exec" {
     inline = [
+      "sudo usermod -a -G docker ${local.user}",
       "${local.yum} docker git mc",
       "sudo systemctl start docker",
       "sudo git clone ${var.app_repo} && cd terraform-kubernetes-cicd-tools/jenkins",
@@ -61,5 +61,5 @@ resource "google_compute_instance" "build" {
 }
 
 output "build" {
-  value = "${google_compute_instance.build.network_interface.0.access_config.0.assigned_nat_ip}:8080"
+  value = "${google_compute_instance.build.network_interface.0.access_config.0.nat_ip}:8080"
 }
