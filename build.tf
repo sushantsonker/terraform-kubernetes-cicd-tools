@@ -5,7 +5,7 @@ variable "private_key" {}
 
 locals {
   yum   = "sudo yum -y -d 1 install"
-  image = "centos-7-v20180129"
+  image = "centos-7-v20190619"
   user  = "centos"
 }
 
@@ -46,8 +46,8 @@ resource "google_compute_instance" "build" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo usermod -a -G dockerroot ${local.user}",
       "${local.yum} docker git mc",
+      "sudo usermod -a -G dockerroot ${local.user}",
       "sudo systemctl start docker",
       "sudo git clone ${var.app_repo} && cd terraform-kubernetes-cicd-tools/jenkins",
       "sudo docker build -t jenkins . && cd ~",
