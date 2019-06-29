@@ -46,7 +46,7 @@ resource "google_compute_instance" "build" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo usermod -a -G docker ${local.user}",
+      "sudo usermod -a -G dockerroot ${local.user}",
       "${local.yum} docker git mc",
       "sudo systemctl start docker",
       "sudo git clone ${var.app_repo} && cd terraform-kubernetes-cicd-tools/jenkins",
