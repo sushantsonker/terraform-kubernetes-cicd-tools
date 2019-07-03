@@ -1,0 +1,10 @@
+project     = "tf-cicd-test"
+region      = "us-central1"
+zone        = "us-central1-c"
+size        = "n1-standard-2"
+public_key  = ".key/user.pub"
+private_key = ".key/user.pem"
+master_user = "user"
+master_pass = "012345678987654321"
+app_repo    = "https://github.com/sushantsonker/terraform-kubernetes-cicd-tools.git"
+
