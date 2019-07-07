@@ -4,9 +4,11 @@ variable "public_key" {}
 variable "private_key" {}
 
 locals {
-  yum   = "sudo yum -y -d 1 install"
-  image = "centos-7-v20190619"
-  user  = "centos"
+  #yum   = "sudo yum -y -d 1 install"
+  apt  = "sudo apt-get install -y" 
+  repo = "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  image = "ubuntu-1604-xenial-v20190628"
+  user  = "ubuntu"
 }
 
 resource "google_compute_instance" "build" {
@@ -43,20 +45,38 @@ resource "google_compute_instance" "build" {
     content     = "${local.kubeconfig}"
     destination = "config"
   }
+  provisioner "file" {
+    source      = "script.sh"
+    destination = "/tmp/script.sh"
+  }
 
-  provisioner "remote-exec" {
+provisioner "remote-exec" {
     inline = [
-      "${local.yum} docker git mc",
-      "sudo usermod -a -G dockerroot ${local.user}",
-      "sudo systemctl start docker",
-      "sudo git clone ${var.app_repo} && cd terraform-kubernetes-cicd-tools/jenkins",
-      "sudo docker build -t jenkins . && cd ~",
-      "sudo chmod 777 /var/run/docker.sock",
-      "sudo docker run --name jenkins -d -p 8080:8080 -v /var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins",
-      "sudo docker exec jenkins kubectl config set-cluster kube",
-      "sudo docker cp config jenkins:/var/jenkins_home/.kube",
+      "chmod +x /tmp/script.sh",
+      "bash /tmp/script.sh",
     ]
   }
+
+
+#  provisioner "remote-exec" {
+#    inline = [
+#      "sudo apt-get update -y",
+#      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -", 
+#      "sudo add-apt-repository ${local.repo}",
+      #"sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"',
+ #     "sudo apt-get update -y",
+ #     "sudo apt-get install -y docker-ce git",
+ #     "sudo usermod -a -G docker ${local.user}",
+ #     "sudo systemctl start docker",
+ #     "sudo git clone ${var.app_repo} && cd terraform-kubernetes-cicd-tools/jenkins",
+ #     "sudo docker build -t jenkins . && cd ~",
+ #     "sudo chmod 777 /var/run/docker.sock",
+ #     "sudo docker run --name jenkins -d -p 8080:8080 -v /var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock jenkins",
+ #     "sudo docker exec jenkins kubectl config set-cluster kube",
+ #     "sudo docker cp config jenkins:/var/jenkins_home/.kube",
+
+  #  ]
+#  }
 
 }
 

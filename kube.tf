@@ -21,7 +21,7 @@ users:
 - name: admin
   user:
     username: ${var.master_user}
-    password: ${var.master_pass}
+    password: '${var.master_pass}'
 KUBECONFIG
 }
 
