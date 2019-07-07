@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         app_repo    = "https://github.com/sushantsonker/terraform-kubernetes-cicd-tools"
-        project_id  = "terraform-k8s-cicd-tools"
+        project_id  = "tf-cicd-test1"
     }
     stages {
         stage('Build') {
